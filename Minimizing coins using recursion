@@ -1,0 +1,15 @@
+REACT
+
+R - Repeat
+
+given a set of coins (eg. {1,5,7} )
+how many ways i can construct sum x by using the above array.
+The same coin can be used multiple times.
+minimum number of coins required to consruct a specific sum.
+E - Examples x = 6 with coins {1,3,4}
+
+[3 , 3] -> 2 coins
+[1 , 1 , 4] -> 3 coins
+[1 , 1 , 1 , 3] -> 4 coins
+[1 , 1 , 1 , 1 , 1 , 1 , 1} -> 6 coins Hence , the min number of coins used are 2.
+A - Algorithm
