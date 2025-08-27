@@ -1,6 +1,11 @@
+REACT
+R - Repeat
+  1. Given a set of coin denominations, with n coins and a target sum x.
+  2. Find the total number of distinct ordered combinations of these coins that sum up to x.
+  3. A coin can be used multiple times. The order of the coins in the combination does not matter.
+
 E - Example
   Let the n=3, coins be {1, 2, 3} and the target sum x=4.
-
   if we consider only 1st coin : [1, 1, 1, 1]
   if we consider 1st nd 2nd coin : [1, 1, 2]
   if we consider 1st nd 3rd coin : [1, 3]
@@ -8,8 +13,39 @@ E - Example
   
   Here, the total number of combinations is 4.
 
+A - Algorithm
+  1. there are two variables, to pick nd not pick the coin.
+  2. In not pick condition, it moves to the next index.
+  3. In pick condition, it pick the current coin only when it is less than x.
+  4. If coin picked, then substract the value from x.
+  5. do recursively until x=0.
+  6. when x==0, return pick+notpick for number of distinct ways.
 
+C - Code
+#include<bits/stdc++.h>
+using namespace std;
 
+long long countCombinations2(int idx, int n, vector<int>&a, int x) {
+    if(x == 0) return 1;   
+    if(x < 0 || idx == n) return 0;
+    long long pick = countCombinations2(idx, n, a, x - a[idx]);
+    long long notpick = countCombinations2(idx + 1, n, a, x);
+    return pick + notpick;
+}
+
+int main() {
+    int n, x;
+    cin >> n >> x;
+    vector<int>a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    long long ways = countCombinations2(0, n, a, x);
+    cout << ways << endl;
+    return 0;
+}
+
+T - testcase
+TLE
 
 
 
