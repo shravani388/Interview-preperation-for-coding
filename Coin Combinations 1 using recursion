@@ -1,8 +1,54 @@
-Problem statement :
+REACT
 
-Given a set of coin combinations.
-Find the total number of distinct ordered combinations of these coins that sum up to a target value x.
-coin can be repeat.
-Example : sum n=4 with coins {1, 3, 4} [1, 3] [3, 1] [4] Here , the combinations are 3.
+R- Repeat
+  1. Given a set of coin combinations, where n is number of coins, x is sum and coins is array of coins present.
+  2. Find the total number of distinct ordered combinations of these coins that sum up to a target value x.
+  3. coin can be repeat.
 
-Algorithm :
+E - Example 
+  sum n=4 with coins {1, 3, 4} 
+  [1, 3] 
+  [3, 1] 
+  [4] 
+  Here , the combinations are 3.
+
+A - Algorithm 
+  1. We have to find the total number of ways to reach the target sum x.
+  2. The core logic is to sum up all possible combinations.
+  3. For each coin, a recursive call is made to find the number of ways to make the remaining sum.
+  4. The results from all these calls are added together.
+  4. This continues until the sum x becomes zero. That path is counted as one way, so it returns 1.
+  5. If x becomes negative, that path is invalid and is counted as 0 ways.
+  6. The final answer is the total sum of all valid paths.
+
+C - Code
+#include<bits/stdc++.h>
+using namespace std;
+
+long long countCombinations(int n, vector<int>&a, int x){
+    if(x == 0) return 1;
+    
+    if(x < 0) return 0;
+
+    long long totalWays = 0;
+    
+    for(int coin : a) {
+        totalWays += countCombinations(n, a, x - coin);
+    }
+
+    return totalWays;
+}
+
+int main(){
+    int n,x;
+    cin>>n>>x;
+    vector<int>a(n);
+    for(int i=0;i<n;i++) cin>>a[i];
+
+    long long ways = countCombinations(n, a, x);
+    cout << ways << endl;
+    return 0;
+}
+
+T - Testcase
+TLE
