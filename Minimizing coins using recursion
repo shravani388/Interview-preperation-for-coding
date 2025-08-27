@@ -1,15 +1,56 @@
 REACT
 
 R - Repeat
+  1. given a set of coins (eg. {1,5,7} )
+  2. how many ways i can construct sum x by using the above array.
+  3. The same coin can be used multiple times.
+  4. minimum number of coins required to consruct a specific sum.
 
-given a set of coins (eg. {1,5,7} )
-how many ways i can construct sum x by using the above array.
-The same coin can be used multiple times.
-minimum number of coins required to consruct a specific sum.
-E - Examples x = 6 with coins {1,3,4}
+E - Examples
+  x = 6 with coins {1,3,4}
+  [3 , 3] -> 2 coins
+  [1 , 1 , 4] -> 3 coins
+  [1 , 1 , 1 , 3] -> 4 coins
+  [1 , 1 , 1 , 1 , 1 , 1 , 1} -> 6 coins
+  Hence , the min number of coins used are 2.
 
-[3 , 3] -> 2 coins
-[1 , 1 , 4] -> 3 coins
-[1 , 1 , 1 , 3] -> 4 coins
-[1 , 1 , 1 , 1 , 1 , 1 , 1} -> 6 coins Hence , the min number of coins used are 2.
 A - Algorithm
+  1. The code makes two choices for each coin to reach the target sum **x**: to pick it or to non-pick it.
+  2. The **non-pick** choice skips the current coin and moves to the next one.
+  3. The **pick** choice subtracts the coin's value from **x** and repeats the process on the smaller sum.
+  4. This continues until **x** becomes zero, which is a solution.
+  5. If a path fails to find a solution, it is discarded.
+  6. The final answer is the minimum number of coins from all the successful paths.
+
+C - Code
+#include<bits/stdc++.h>
+using namespace std;
+
+int minimizingCoins(int idx,int n,vector<int>&a,int x){
+    if(x==0) return 0;
+    if(idx==n) return INT_MAX;
+
+    int notpick=minimizingCoins(idx+1,n,a,x);
+
+    int pick=INT_MAX;
+    if(a[idx]<=x){
+        int cnt=minimizingCoins(idx,n,a,x-a[idx]);
+        if(cnt!=INT_MAX) pick=1+cnt;
+    }
+
+    return min(pick,notpick);
+}
+
+int main(){
+    int n,x;
+    cin>>n>>x;
+    vector<int>a(n);
+    for(int i=0;i<n;i++) cin>>a[i];
+
+    int mini=minimizingCoins(0,n,a,x);
+    if(mini==INT_MAX) cout<<-1;
+    else cout<<mini;
+}
+
+T - testcase
+TLE
