@@ -45,11 +45,11 @@ int main(){
     int n,x;
     cin>>n>>x;
     vector<int>a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
-
-    int mini=minimizingCoins(0,n,a,x);
-    if(mini==INT_MAX) cout<<-1;
-    else cout<<mini;
+    for(int i=0;i<n;i++) 
+      cin>>a[i];
+    int minimum = minimizingCoins(0,n,a,x);
+    if(minimum == INT_MAX) cout<<-1;
+    else cout<<minimum;
 }
 
 T - testcase
